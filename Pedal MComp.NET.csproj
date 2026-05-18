@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <NoWarn>MSB3277</NoWarn>
+    <AssemblyName>Pedal MComp.NET</AssemblyName>
+    <RootNamespace>PedalMComp</RootNamespace>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="BuzzGUI.Interfaces">
+      <HintPath>C:\Program Files\ReBuzz\BuzzGUI.Interfaces.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- ItemGroup form is essential here per Build §3.5: the filename
+         contains a space, and a literal string in SourceFiles gets
+         mis-parsed in some MSBuild paths, silently dropping the Copy. -->
+    <PresetBundle Include="Pedal MComp_Presets.prs.xml" />
+  </ItemGroup>
+
+  <Target Name="DeployToReBuzz" AfterTargets="Build">
+    <Message Text="Deploying $(TargetFileName) → C:\Program Files\ReBuzz\Gear\Effects\"
+             Importance="high" />
+    <Copy SourceFiles="$(TargetPath)"
+          DestinationFolder="C:\Program Files\ReBuzz\Gear\Effects\"
+          ContinueOnError="true" />
+    <Message Text="Deploying @(PresetBundle) → C:\Program Files\ReBuzz\Gear\Effects\"
+             Importance="high" />
+    <Copy SourceFiles="@(PresetBundle)"
+          DestinationFolder="C:\Program Files\ReBuzz\Gear\Effects\"
+          ContinueOnError="true" />
+  </Target>
+
+</Project>

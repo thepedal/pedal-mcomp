@@ -1,0 +1,803 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PresetDictionary>
+  <Item Key="Default">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="6" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="0" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="18" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="31" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="95" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="89" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="0" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="18" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="31" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="77" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="77" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="0" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="18" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="31" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="65" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="65" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="0" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="18" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="31" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="57" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="57" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="0" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="24" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="Bypass">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="6" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="0" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="18" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="31" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="95" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="89" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="0" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="1" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="18" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="31" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="77" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="77" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="0" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="1" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="18" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="31" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="65" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="65" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="0" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="1" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="18" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="31" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="57" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="57" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="0" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="1" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="24" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="0" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="Mastering - Transparent">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="12" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="1" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="12" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="14" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="104" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="104" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="0" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="12" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="14" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="84" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="95" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="0" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="12" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="14" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="73" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="89" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="0" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="12" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="14" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="65" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="84" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="0" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="25" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="Mastering - Glue">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="8" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="1" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="15" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="24" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="95" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="89" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="1" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="15" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="24" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="77" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="77" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="1" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="15" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="24" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="65" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="65" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="1" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="15" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="24" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="57" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="57" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="1" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="25" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="Mastering - Punch">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="6" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="0" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="18" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="24" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="89" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="77" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="1" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="18" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="24" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="65" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="65" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="2" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="18" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="31" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="57" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="57" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="2" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="18" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="38" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="27" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="45" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="3" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="26" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="Mastering - Loudness">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="4" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="0" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="24" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="38" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="65" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="65" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="4" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="24" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="38" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="57" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="57" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="4" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="24" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="38" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="45" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="45" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="4" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="24" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="38" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="27" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="38" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="4" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="28" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="Mix Bus - Tighten">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="6" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="0" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="18" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="24" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="95" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="89" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="2" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="18" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="24" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="77" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="77" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="2" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="18" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="24" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="65" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="65" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="2" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="18" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="24" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="57" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="57" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="2" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="25" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="Mix Bus - Vintage">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="12" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="1" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="18" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="31" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="104" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="95" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="3" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="18" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="31" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="95" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="84" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="3" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="18" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="31" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="89" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="77" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="2" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="18" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="31" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="77" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="73" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="2" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="26" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="Drum Bus - Punch">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="6" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="0" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="18" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="47" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="65" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="57" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="3" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="18" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="47" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="65" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="57" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="3" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="15" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="24" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="89" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="77" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="1" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="21" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="14" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="89" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="77" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="1" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="25" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="Drum Bus - Smash">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="3" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="0" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="27" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="71" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="38" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="45" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="6" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="27" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="71" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="38" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="45" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="6" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="27" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="71" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="38" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="45" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="6" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="27" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="71" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="27" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="45" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="6" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="27" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="50" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="Drum Bus - Vintage">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="12" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="1" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="18" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="47" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="89" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="65" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="4" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="18" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="47" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="89" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="65" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="4" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="18" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="38" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="89" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="65" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="3" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="18" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="24" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="77" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="57" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="2" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="26" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="Vocal - De-Ess">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="94" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="6" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="0" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="18" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="31" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="95" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="89" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="0" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="1" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="18" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="31" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="77" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="77" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="0" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="1" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="12" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="71" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="27" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="45" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="0" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="15" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="71" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="27" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="45" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="0" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="24" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="Vocal - Air">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="8" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="1" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="18" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="14" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="95" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="89" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="0" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="18" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="14" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="77" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="77" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="1" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="15" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="24" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="65" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="65" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="2" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="15" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="24" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="57" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="57" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="4" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="25" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="Vocal - Body Control">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="6" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="0" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="18" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="14" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="95" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="89" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="0" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="18" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="47" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="77" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="73" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="2" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="18" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="24" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="65" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="65" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="0" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="18" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="14" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="57" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="57" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="0" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="25" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="Vocal - Smooth">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="10" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="1" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="15" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="24" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="95" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="95" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="2" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="15" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="24" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="77" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="89" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="2" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="15" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="24" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="65" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="84" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="2" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="15" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="24" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="57" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="77" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="2" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="25" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="Bass - Tighten">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="6" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="0" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="18" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="47" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="77" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="77" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="3" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="18" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="24" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="89" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="77" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="1" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="18" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="14" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="65" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="65" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="0" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="18" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="14" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="57" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="57" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="0" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="25" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="Bass - Sub Limit">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="33" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="3" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="0" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="12" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="127" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="38" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="57" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="0" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="18" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="14" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="77" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="77" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="0" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="18" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="14" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="65" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="65" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="0" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="18" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="14" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="57" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="57" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="0" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="24" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="FX - Pumping">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="3" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="0" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="30" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="79" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="38" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="65" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="8" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="30" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="79" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="38" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="65" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="8" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="30" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="79" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="38" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="65" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="8" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="30" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="79" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="38" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="65" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="8" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="24" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="FX - Squash">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="0" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="0" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="27" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="102" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="27" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="57" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="6" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="27" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="102" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="27" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="57" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="6" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="27" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="102" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="27" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="57" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="6" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="27" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="102" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="27" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="57" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="6" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="25" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+  <Item Key="FX - Lo-Fi">
+    <Preset Machine="Pedal MComp">
+      <Parameters>
+        <Parameter Name="Listen" Group="1" Index="0" Track="0" Value="0" />
+        <Parameter Name="Xover L-LM" Group="1" Index="1" Track="0" Value="52" />
+        <Parameter Name="Xover LM-HM" Group="1" Index="2" Track="0" Value="59" />
+        <Parameter Name="Xover HM-H" Group="1" Index="3" Track="0" Value="75" />
+        <Parameter Name="Knee" Group="1" Index="4" Track="0" Value="4" />
+        <Parameter Name="Detection" Group="1" Index="5" Track="0" Value="0" />
+        <Parameter Name="L Threshold" Group="1" Index="6" Track="0" Value="24" />
+        <Parameter Name="L Ratio" Group="1" Index="7" Track="0" Value="47" />
+        <Parameter Name="L Attack" Group="1" Index="8" Track="0" Value="65" />
+        <Parameter Name="L Release" Group="1" Index="9" Track="0" Value="89" />
+        <Parameter Name="L Makeup" Group="1" Index="10" Track="0" Value="3" />
+        <Parameter Name="L Bypass" Group="1" Index="11" Track="0" Value="0" />
+        <Parameter Name="LM Threshold" Group="1" Index="12" Track="0" Value="24" />
+        <Parameter Name="LM Ratio" Group="1" Index="13" Track="0" Value="71" />
+        <Parameter Name="LM Attack" Group="1" Index="14" Track="0" Value="65" />
+        <Parameter Name="LM Release" Group="1" Index="15" Track="0" Value="77" />
+        <Parameter Name="LM Makeup" Group="1" Index="16" Track="0" Value="5" />
+        <Parameter Name="LM Bypass" Group="1" Index="17" Track="0" Value="0" />
+        <Parameter Name="HM Threshold" Group="1" Index="18" Track="0" Value="24" />
+        <Parameter Name="HM Ratio" Group="1" Index="19" Track="0" Value="71" />
+        <Parameter Name="HM Attack" Group="1" Index="20" Track="0" Value="65" />
+        <Parameter Name="HM Release" Group="1" Index="21" Track="0" Value="65" />
+        <Parameter Name="HM Makeup" Group="1" Index="22" Track="0" Value="5" />
+        <Parameter Name="HM Bypass" Group="1" Index="23" Track="0" Value="0" />
+        <Parameter Name="H Threshold" Group="1" Index="24" Track="0" Value="6" />
+        <Parameter Name="H Ratio" Group="1" Index="25" Track="0" Value="102" />
+        <Parameter Name="H Attack" Group="1" Index="26" Track="0" Value="27" />
+        <Parameter Name="H Release" Group="1" Index="27" Track="0" Value="45" />
+        <Parameter Name="H Makeup" Group="1" Index="28" Track="0" Value="0" />
+        <Parameter Name="H Bypass" Group="1" Index="29" Track="0" Value="0" />
+        <Parameter Name="Output Gain" Group="1" Index="30" Track="0" Value="26" />
+        <Parameter Name="Dry-Wet" Group="1" Index="31" Track="0" Value="100" />
+      </Parameters>
+      <Attributes />
+      <Comment></Comment>
+    </Preset>
+  </Item>
+</PresetDictionary>
