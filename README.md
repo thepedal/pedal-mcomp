@@ -1,4 +1,4 @@
-# Pedal MComp v1.0
+# Pedal MComp v1.1
 
 A 4-band stereo soft-knee compressor for ReBuzz, with Linkwitz-Riley 24 dB/oct
 crossovers in a balanced binary-tree topology. Each band has independent
@@ -6,6 +6,10 @@ threshold / ratio / attack / release / makeup / bypass; knee width, detection
 mode (peak/RMS), output gain, dry-wet mix, and a per-band Listen selector are
 global. Every parameter slider shows its real-world value (dB / ms / Hz /
 ratio / %) rather than a raw integer.
+
+**New in v1.1**: custom GUI embedded in the parameter window — per-band input
+and gain-reduction meters, transfer-curve display with operating-point dot,
+threshold/ratio readout, bypass overlay. See "GUI" section below.
 
 ## Signal flow
 
@@ -72,6 +76,55 @@ solos that band so you can hear what the crossovers are doing during setup.
 Per-band Bypass interacts: when you solo a band that's bypassed, you hear the
 uncompressed crossover output for that band.
 
+## GUI (v1.1)
+
+The custom GUI embeds in the standard parameter window above the sliders.
+Four columns side-by-side, one per band:
+
+```
+┌─────────────┬─────────────┬─────────────┬─────────────┐
+│      L      │     LM      │     HM      │      H      │
+│   ┌──┐ ┌──┐ │   ┌──┐ ┌──┐ │   ┌──┐ ┌──┐ │   ┌──┐ ┌──┐ │
+│   │██│ │  │ │   │██│ │█ │ │   │█ │ │██│ │   │█ │ │  │ │
+│   │██│ │██│ │   │██│ │██│ │   │██│ │██│ │   │██│ │  │ │
+│   │██│ │██│ │   │██│ │██│ │   │██│ │██│ │   │██│ │  │ │
+│    IN  GR   │    IN  GR   │    IN  GR   │    IN  GR   │
+│             │             │             │             │
+│  ┌───────┐  │  ┌───────┐  │  ┌───────┐  │  ┌───────┐  │
+│  │   /─  │  │  │   /─  │  │  │   /─  │  │  │   /─  │  │
+│  │  /    │  │  │  /    │  │  │  /    │  │  │  /    │  │
+│  │ /     │  │  │ /     │  │  │ /     │  │  │ /     │  │
+│  └───────┘  │  └───────┘  │  └───────┘  │  └───────┘  │
+│  T -18 dB   │  T -18 dB   │  T -18 dB   │  T -18 dB   │
+│  R 2.5:1    │  R 2.5:1    │  R 2.5:1    │  R 2.5:1    │
+└─────────────┴─────────────┴─────────────┴─────────────┘
+```
+
+- **IN meter** — post-crossover, pre-compressor input level. Three-zone
+  green/amber/red gradient at -18 dBFS and -6 dBFS.
+- **GR meter** — current gain reduction, fills downward from the top. Full
+  scale = 24 dB GR.
+- **Transfer curve** — input dB on the x-axis, output dB on the y-axis,
+  both -60 to 0. Reference diagonal in grey shows the no-compression line.
+  Amber dashed line marks the threshold. The cyan curve is the actual
+  compression characteristic, recomputed each frame from the same
+  `BandCompressor.SoftKneeGR` formula the audio path uses. An amber dot
+  marks the current operating point (input level + applied GR), so you
+  can see *where on the curve the compressor is sitting right now* —
+  ties the meters to the curve at a glance.
+- **Threshold / Ratio readout** below the curve.
+- **Bypass overlay** — a band shows "BYPASS" overlaid in muted colour
+  when that band's bypass switch is on. The IN meter keeps updating
+  during bypass (handy for "is this band hot enough to need
+  compression?" decisions).
+
+The GUI refreshes at ~30 fps via `DispatcherTimer`. Meter values are
+written to `volatile float` fields on each `BandCompressor` from the audio
+thread and read from the UI thread — no locks, no allocations per frame
+(PedalComp §7 pattern).
+
+
+
 ## Limitations / future work
 
 - **No lookahead** in v1. Useful for catching fast transients without
@@ -81,8 +134,9 @@ uncompressed crossover output for that band.
   splits. v1 sums magnitude-flat (good enough for transparent operation)
   but the phase response tilts at the crossover points. Inaudible on most
   material; addable as v1.x without breaking presets.
-- **Rack-only.** A custom GUI with per-band GR meters and a crossover/spectrum
-  view is the most useful single addition planned.
+- **GUI is read-only.** Meters and curves display, but the curves aren't
+  click-draggable for parameter editing (use the parameter sliders below
+  the embedded GUI). Adding drag-edit on the curves is a v1.x candidate.
 - **No sidechain input.** v1 detects from the band's own signal only. A
   sidechain input that feeds the detector while the program signal is
   compressed is a useful v2-class feature.
@@ -131,6 +185,7 @@ dotnet build              # → deploys both files
 |---------------------------------|----------------------------------------------------|
 | `Pedal MComp.NET.csproj`        | Build config; net10.0-windows, Effects deploy     |
 | `PedalMComp.cs`                 | Main: parameter declarations + Work loop          |
+| `PedalMCompGui.cs`              | WPF GUI factory + UserControl (v1.1)              |
 | `BandCompressor.cs`             | Single-band DSP, port of Pedal Comp v1            |
 | `Crossover.cs`                  | LR4 LP/HP biquad pair, cached coefs               |
 | `FastMath.cs`                   | LinToDb/DbToLin from PedalComp §5                 |

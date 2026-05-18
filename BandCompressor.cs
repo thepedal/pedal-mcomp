@@ -23,6 +23,14 @@ namespace PedalMComp
         private float _envDb     = -120f;   // smoothed level estimate, dB
         private float _rmsEnvSq  = 0f;      // squared linear RMS averaging
 
+        // ── Metering (audio thread writes, UI thread reads) ─────────────
+        // volatile float gives ordering on x64 for single-writer/single-
+        // reader display purposes per PedalComp §7. Both values in dB:
+        //   MeterInDb — smoothed input level into this band's compressor
+        //   MeterGrDb — current gain reduction (positive dB)
+        public volatile float MeterInDb = -120f;
+        public volatile float MeterGrDb = 0f;
+
         // ── Coefficient cache ───────────────────────────────────────────
         private int   _cSr        = -1;
         private float _cAttackMs  = -1f;
@@ -89,18 +97,17 @@ namespace PedalMComp
         }
 
         // Process one stereo sample. Modifies L/R in place.
-        // - bypass=true returns immediately, no modification, but the detector
-        //   does NOT track input during bypass — on un-bypass the envelope
-        //   resumes from its last state. This is the same convention as a
-        //   physical compressor's bypass switch.
+        // - Detection runs unconditionally so the metering stays live even
+        //   when the band is bypassed (useful for tuning: user can see how
+        //   hot a band is before deciding to compress it).
+        // - bypass=true skips ONLY the gain application; detection still
+        //   updates _envDb and the volatile meter fields.
         public void Process(
             ref float L, ref float R,
             float threshDb, float ratio, float kneeDb,
             float makeupLin, bool isRms, bool bypass)
         {
-            if (bypass) return;
-
-            // ── 1. Stereo-linked level detection ────────────────────────
+            // ── 1. Stereo-linked level detection (always) ───────────────
             float detLin;
             if (isRms)
             {
@@ -121,8 +128,18 @@ namespace PedalMComp
             float coef = detDb > _envDb ? _attackCoef : _releaseCoef;
             _envDb = coef * _envDb + (1f - coef) * detDb;
 
+            // Publish input level for the meter regardless of bypass.
+            MeterInDb = _envDb;
+
+            if (bypass)
+            {
+                MeterGrDb = 0f;
+                return;
+            }
+
             // ── 3. Static curve → gain reduction in dB ──────────────────
             float grDb = SoftKneeGR(_envDb, threshDb, kneeDb, ratio);
+            MeterGrDb = grDb;
 
             // ── 4. Apply gain reduction + makeup in linear domain ───────
             float gainLin = FastMath.DbToLin(-grDb) * makeupLin;
@@ -135,6 +152,8 @@ namespace PedalMComp
         {
             _envDb    = -120f;
             _rmsEnvSq = 0f;
+            MeterInDb = -120f;
+            MeterGrDb = 0f;
         }
     }
 }
