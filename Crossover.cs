@@ -102,25 +102,43 @@ namespace PedalMComp
         //     y     = b0·x + s1
         //     s1'   = b1·x + s2 - a1·y
         //     s2'   =        b2·x - a2·y
+        //
+        // Denormal flushes (Core §30) live after every state assignment.
+        // Under sustained silence the integrator state decays exponentially
+        // toward zero and crosses ~1e-38 in tens of milliseconds; from that
+        // point every FP op on the state traps to CPU microcode at ~50×
+        // normal cost. The `> -t && < t` check is two predicted-not-taken
+        // branches per state, ~1 ns each — total per-sample cost across all
+        // 8 state vars is well under 0.1% CPU at 48 kHz.
         public void Process(ref float L, ref float R)
         {
+            const float DENORM = 1e-25f;
+
             // ── First biquad section ──
             float yLa = _b0 * L + _lS1a;
             _lS1a     = _b1 * L + _lS2a - _a1 * yLa;
+            if (_lS1a > -DENORM && _lS1a < DENORM) _lS1a = 0f;
             _lS2a     = _b2 * L         - _a2 * yLa;
+            if (_lS2a > -DENORM && _lS2a < DENORM) _lS2a = 0f;
 
             float yRa = _b0 * R + _rS1a;
             _rS1a     = _b1 * R + _rS2a - _a1 * yRa;
+            if (_rS1a > -DENORM && _rS1a < DENORM) _rS1a = 0f;
             _rS2a     = _b2 * R         - _a2 * yRa;
+            if (_rS2a > -DENORM && _rS2a < DENORM) _rS2a = 0f;
 
             // ── Second biquad section (cascade) ──
             float yLb = _b0 * yLa + _lS1b;
             _lS1b     = _b1 * yLa + _lS2b - _a1 * yLb;
+            if (_lS1b > -DENORM && _lS1b < DENORM) _lS1b = 0f;
             _lS2b     = _b2 * yLa         - _a2 * yLb;
+            if (_lS2b > -DENORM && _lS2b < DENORM) _lS2b = 0f;
 
             float yRb = _b0 * yRa + _rS1b;
             _rS1b     = _b1 * yRa + _rS2b - _a1 * yRb;
+            if (_rS1b > -DENORM && _rS1b < DENORM) _rS1b = 0f;
             _rS2b     = _b2 * yRa         - _a2 * yRb;
+            if (_rS2b > -DENORM && _rS2b < DENORM) _rS2b = 0f;
 
             L = yLb;
             R = yRb;
@@ -131,25 +149,6 @@ namespace PedalMComp
         {
             _lS1a = _lS2a = _lS1b = _lS2b = 0f;
             _rS1a = _rS2a = _rS1b = _rS2b = 0f;
-        }
-
-        // Flush near-zero state to true zero. Biquads with very small state
-        // values can decay into IEEE denormal territory under sustained
-        // silence, which causes CPU spikes on x86. Call once per buffer when
-        // input is known to be quiet, or unconditionally if cost is irrelevant.
-        // TODO v1.x: investigate enabling FTZ/DAZ globally via runtime config
-        // and removing this housekeeping.
-        public void FlushDenormals()
-        {
-            const float t = 1e-25f;
-            if (MathF.Abs(_lS1a) < t) _lS1a = 0f;
-            if (MathF.Abs(_lS2a) < t) _lS2a = 0f;
-            if (MathF.Abs(_lS1b) < t) _lS1b = 0f;
-            if (MathF.Abs(_lS2b) < t) _lS2b = 0f;
-            if (MathF.Abs(_rS1a) < t) _rS1a = 0f;
-            if (MathF.Abs(_rS2a) < t) _rS2a = 0f;
-            if (MathF.Abs(_rS1b) < t) _rS1b = 0f;
-            if (MathF.Abs(_rS2b) < t) _rS2b = 0f;
         }
     }
 }

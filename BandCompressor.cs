@@ -113,6 +113,12 @@ namespace PedalMComp
             {
                 float ssq = (L * L + R * R) * 0.5f;
                 _rmsEnvSq = _rmsCoef * _rmsEnvSq + (1f - _rmsCoef) * ssq;
+                // Denormal flush per Core §30: _rmsEnvSq is squared (always
+                // ≥0) and decays toward zero on sustained silence. Single
+                // comparison since negative values are impossible here.
+                // _envDb below doesn't need protection — it decays toward
+                // -120 dB, far from denormal range on the negative side.
+                if (_rmsEnvSq < 1e-25f) _rmsEnvSq = 0f;
                 detLin    = MathF.Sqrt(_rmsEnvSq);
             }
             else
