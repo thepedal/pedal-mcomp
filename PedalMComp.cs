@@ -84,6 +84,27 @@ namespace PedalMComp
         private readonly Lr4Filter _xoHighLP = new Lr4Filter(Lr4Mode.Lowpass);
         private readonly Lr4Filter _xoHighHP = new Lr4Filter(Lr4Mode.Highpass);
 
+        // All-pass phase correction (v1.3): one per branch, each tuned to
+        // the OPPOSITE branch's crossover Fc, so both branches end up with
+        // identical phase response and the sum is phase-coherent. Used
+        // only when PhaseLinear != 0.
+        private readonly Allpass _apHighOnLowBranch = new Allpass();   // Fc = high_xover
+        private readonly Allpass _apLowOnHighBranch = new Allpass();   // Fc = low_xover
+
+        // Spectrum analyser (v1.3): fed mono mix per sample, runs FFT on
+        // its own cadence, exposes magnitudes for the GUI to read.
+        private readonly SpectrumAnalyzer _spectrum = new SpectrumAnalyzer();
+
+        // Dry-side delay buffers (v1.3 lookahead): when Lookahead > 0 the
+        // wet path is delayed by N samples inside each BandCompressor.
+        // For the dry/wet mix to remain phase-coherent, the dry signal
+        // must take an identical delay. Same MAX size as BandCompressor's
+        // per-band buffers (2048 = ~10.7 ms at 192 kHz).
+        private const int MAX_DRY_DELAY_SAMPLES = 2048;
+        private readonly float[] _dryDelayL = new float[MAX_DRY_DELAY_SAMPLES];
+        private readonly float[] _dryDelayR = new float[MAX_DRY_DELAY_SAMPLES];
+        private int _dryDelayWriteIdx = 0;
+
         // Four band compressors, indexed 0=L, 1=LM, 2=HM, 3=H.
         private readonly BandCompressor[] _bands = new BandCompressor[4];
 
@@ -93,6 +114,15 @@ namespace PedalMComp
         private readonly float[] _ratio     = new float[4];
         private readonly float[] _makeupLin = new float[4];
         private readonly bool[]  _bypass    = new bool[4];
+
+        // ── Output meter state (audio thread writes per-buffer, UI reads) ──
+        // Smoothed peak envelope of post-everything output (post Output Gain,
+        // post Dry-Wet mix). Release-only smoothing — attacks are instant,
+        // releases follow ~100 ms decay. PedalComp §7 volatile pattern.
+        private float _outEnvL = 0f;
+        private float _outEnvR = 0f;
+        public volatile float MeterOutLeftDb  = -120f;
+        public volatile float MeterOutRightDb = -120f;
 
         public PedalMCompMachine(IBuzzMachineHost host)
         {
@@ -107,6 +137,10 @@ namespace PedalMComp
         // ─────────────────────────────────────────────────────────────────
 
         internal BandCompressor[] Bands => _bands;
+
+        // Spectrum analyser exposed for the GUI's spectrum view (read-only
+        // from UI thread; updated by audio thread via Feed()).
+        internal SpectrumAnalyzer Spectrum => _spectrum;
 
         // Mirror of the const Hz bounds — GUI uses these to convert raw
         // xover indices back to display Hz. Internal because they're an
@@ -701,6 +735,51 @@ namespace PedalMComp
 
 
         // ─────────────────────────────────────────────────────────────────
+        //  v1.3 additions — appended per Build §3.3, defaults preserve
+        //  v1.2 behaviour so the 20 presets are bit-identical without
+        //  these toggles.
+        // ─────────────────────────────────────────────────────────────────
+
+        [ParameterDecl(
+            Name = "Lookahead",
+            Description = "Pre-delays audio so the compressor reacts before transients reach the output. Adds equivalent processing latency — comb-filtering occurs if a parallel dry path is in use. Off = zero-latency.",
+            MinValue = 0, MaxValue = 127, DefValue = 0,
+            ValueDescriptions = new[] {
+                "Off", "0.10 ms", "0.10 ms", "0.11 ms", "0.11 ms", "0.12 ms", "0.12 ms", "0.12 ms",
+                "0.13 ms", "0.13 ms", "0.14 ms", "0.14 ms", "0.15 ms", "0.16 ms", "0.16 ms", "0.17 ms",
+                "0.17 ms", "0.18 ms", "0.19 ms", "0.19 ms", "0.20 ms", "0.21 ms", "0.22 ms", "0.22 ms",
+                "0.23 ms", "0.24 ms", "0.25 ms", "0.26 ms", "0.27 ms", "0.28 ms", "0.29 ms", "0.30 ms",
+                "0.31 ms", "0.32 ms", "0.33 ms", "0.35 ms", "0.36 ms", "0.37 ms", "0.39 ms", "0.40 ms",
+                "0.42 ms", "0.43 ms", "0.45 ms", "0.46 ms", "0.48 ms", "0.50 ms", "0.52 ms", "0.54 ms",
+                "0.56 ms", "0.58 ms", "0.60 ms", "0.62 ms", "0.64 ms", "0.67 ms", "0.69 ms", "0.72 ms",
+                "0.75 ms", "0.77 ms", "0.80 ms", "0.83 ms", "0.86 ms", "0.90 ms", "0.93 ms", "0.96 ms",
+                "1.00 ms", "1.04 ms", "1.08 ms", "1.12 ms", "1.16 ms", "1.20 ms", "1.25 ms", "1.29 ms",
+                "1.34 ms", "1.39 ms", "1.44 ms", "1.49 ms", "1.55 ms", "1.61 ms", "1.67 ms", "1.73 ms",
+                "1.79 ms", "1.86 ms", "1.93 ms", "2.00 ms", "2.08 ms", "2.15 ms", "2.23 ms", "2.32 ms",
+                "2.40 ms", "2.49 ms", "2.59 ms", "2.68 ms", "2.78 ms", "2.89 ms", "2.99 ms", "3.11 ms",
+                "3.22 ms", "3.34 ms", "3.46 ms", "3.59 ms", "3.73 ms", "3.87 ms", "4.01 ms", "4.16 ms",
+                "4.31 ms", "4.48 ms", "4.64 ms", "4.81 ms", "4.99 ms", "5.18 ms", "5.37 ms", "5.57 ms",
+                "5.78 ms", "5.99 ms", "6.22 ms", "6.45 ms", "6.69 ms", "6.94 ms", "7.20 ms", "7.46 ms",
+                "7.74 ms", "8.03 ms", "8.33 ms", "8.64 ms", "8.96 ms", "9.30 ms", "9.64 ms", "10.0 ms"
+            })]
+        public int Lookahead { get; set; }
+
+        [ParameterDecl(
+            Name = "Phase Linear",
+            Description = "Adds all-pass compensation so the four bands sum phase-coherently at crossovers. Adds a small fixed group delay (1-3 ms depending on crossover frequencies).",
+            MinValue = 0, MaxValue = 1, DefValue = 0,
+            ValueDescriptions = new[] { "Off", "On" })]
+        public int PhaseLinear { get; set; }
+
+        [ParameterDecl(
+            Name = "Spectrum View",
+            Description = "Show a real-time spectrum analyser below the OUT meter, showing the post-effect output signal. Does not affect audio.",
+            MinValue = 0, MaxValue = 1, DefValue = 0,
+            ValueDescriptions = new[] { "Off", "On" })]
+        public int SpectrumView { get; set; }
+
+
+        // ─────────────────────────────────────────────────────────────────
         //  Conversion helpers (parameter int → DSP float)
         // ─────────────────────────────────────────────────────────────────
 
@@ -761,6 +840,32 @@ namespace PedalMComp
             _xoHighLP.UpdateCoefs(fc3, sr);
             _xoHighHP.UpdateCoefs(fc3, sr);
 
+            // ── Phase-linear all-pass coefficient update ──────────────
+            // Each branch is corrected with the OPPOSITE branch's
+            // crossover Fc, so all four bands share the same phase
+            // response after compensation.
+            bool phaseLinear = PhaseLinear != 0;
+            if (phaseLinear)
+            {
+                _apHighOnLowBranch.UpdateCoefs(fc3, sr);   // AP@high on low branch
+                _apLowOnHighBranch.UpdateCoefs(fc1, sr);   // AP@low on high branch
+            }
+
+            // ── Lookahead samples ──────────────────────────────────────
+            // Parameter idx 0 = Off → samples 0 (zero-latency fast path).
+            // idx 1..127 log-mapped 0.1..10 ms → convert to samples for sr.
+            int lookaheadSamples = 0;
+            if (Lookahead > 0)
+            {
+                float ms = 0.1f * MathF.Pow(100f, (Lookahead - 1) / 126f);
+                lookaheadSamples = (int)MathF.Round(ms * sr * 0.001f);
+                // Clamp to delay-line capacity (2048 samples = ~10.7 ms at 192 kHz)
+                if (lookaheadSamples > 2047) lookaheadSamples = 2047;
+                if (lookaheadSamples < 0)    lookaheadSamples = 0;
+            }
+
+            bool spectrumOn = SpectrumView != 0;
+
             // ── Update band compressor coefficients (log-mapped ms) ──
             _bands[0].UpdateCoefs(sr,
                 MapMsLog(L_Attack,  ATTACK_MIN_MS,  ATTACK_MAX_MS),
@@ -804,6 +909,12 @@ namespace PedalMComp
             float dry        = 1f - wet;
             int   listen     = Listen;
 
+            // Output-meter envelope: ~100 ms release (-60 dB/sec falloff).
+            // Attack is instantaneous (peak follows input upward immediately).
+            float outRelCoef = MathF.Exp(-1f / (0.1f * sr));
+            float outEnvL = _outEnvL;
+            float outEnvR = _outEnvR;
+
             // ── Per-sample loop ──
             for (int i = 0; i < n; i++)
             {
@@ -816,6 +927,15 @@ namespace PedalMComp
 
                 float halfHighL = dryL, halfHighR = dryR;
                 _xoMidHP.Process(ref halfHighL, ref halfHighR);
+
+                // Phase-linear correction: opposite-branch all-pass on each
+                // half, so after this both halves have the same phase
+                // response and sum coherently. Skip entirely when off.
+                if (phaseLinear)
+                {
+                    _apHighOnLowBranch.Process(ref halfLowL,  ref halfLowR);
+                    _apLowOnHighBranch.Process(ref halfHighL, ref halfHighR);
+                }
 
                 // Stage 2a: split low half at xover1 → L band + LM band.
                 float lowL = halfLowL, lowR = halfLowR;
@@ -833,13 +953,13 @@ namespace PedalMComp
 
                 // Compress each band independently (stereo-linked detection).
                 _bands[0].Process(ref lowL,   ref lowR,
-                    _threshDb[0], _ratio[0], kneeDb, _makeupLin[0], isRms, _bypass[0]);
+                    _threshDb[0], _ratio[0], kneeDb, _makeupLin[0], isRms, _bypass[0], lookaheadSamples);
                 _bands[1].Process(ref lomidL, ref lomidR,
-                    _threshDb[1], _ratio[1], kneeDb, _makeupLin[1], isRms, _bypass[1]);
+                    _threshDb[1], _ratio[1], kneeDb, _makeupLin[1], isRms, _bypass[1], lookaheadSamples);
                 _bands[2].Process(ref himidL, ref himidR,
-                    _threshDb[2], _ratio[2], kneeDb, _makeupLin[2], isRms, _bypass[2]);
+                    _threshDb[2], _ratio[2], kneeDb, _makeupLin[2], isRms, _bypass[2], lookaheadSamples);
                 _bands[3].Process(ref highL,  ref highR,
-                    _threshDb[3], _ratio[3], kneeDb, _makeupLin[3], isRms, _bypass[3]);
+                    _threshDb[3], _ratio[3], kneeDb, _makeupLin[3], isRms, _bypass[3], lookaheadSamples);
 
                 // Listen mode: All sums everything, else isolate one band.
                 float wetL, wetR;
@@ -858,11 +978,63 @@ namespace PedalMComp
                 wetL *= outGainLin;
                 wetR *= outGainLin;
 
-                float outL = dryL * dry + wetL * wet;
-                float outR = dryR * dry + wetR * wet;
+                // Dry-path delay alignment for lookahead. Without this the
+                // dry/wet mix combs because dryL/R are live samples while
+                // wetL/R are delayed by `lookaheadSamples` from inside
+                // each BandCompressor. Skip entirely when lookahead is 0.
+                float dryMixL, dryMixR;
+                if (lookaheadSamples > 0)
+                {
+                    _dryDelayL[_dryDelayWriteIdx] = dryL;
+                    _dryDelayR[_dryDelayWriteIdx] = dryR;
+                    int readIdx = _dryDelayWriteIdx - lookaheadSamples;
+                    if (readIdx < 0) readIdx += MAX_DRY_DELAY_SAMPLES;
+                    dryMixL = _dryDelayL[readIdx];
+                    dryMixR = _dryDelayR[readIdx];
+                    _dryDelayWriteIdx++;
+                    if (_dryDelayWriteIdx >= MAX_DRY_DELAY_SAMPLES) _dryDelayWriteIdx = 0;
+                }
+                else
+                {
+                    dryMixL = dryL;
+                    dryMixR = dryR;
+                }
+
+                float outL = dryMixL * dry + wetL * wet;
+                float outR = dryMixR * dry + wetR * wet;
+
+                // Feed spectrum analyser from the POST-effect signal so
+                // it shows the actual output content — including the
+                // combined effect of band compression, Output Gain, and
+                // Dry-Wet mix. Skipped entirely when SpectrumView is off.
+                // The feed itself is cheap (ring buffer write + counter);
+                // the FFT inside costs ~30 µs every ~33 ms.
+                if (spectrumOn)
+                    _spectrum.Feed((outL + outR) * 0.5f, sr);
+
+                // Output-meter envelope: instant attack, smoothed release.
+                // Peak detection on the post-everything output.
+                float absL = MathF.Abs(outL);
+                outEnvL = absL > outEnvL
+                    ? absL
+                    : outRelCoef * outEnvL + (1f - outRelCoef) * absL;
+                float absR = MathF.Abs(outR);
+                outEnvR = absR > outEnvR
+                    ? absR
+                    : outRelCoef * outEnvR + (1f - outRelCoef) * absR;
+                // Denormal flush on release decay (Core §30): outEnvL/R are
+                // ≥0 by construction so one comparison suffices.
+                if (outEnvL < 1e-25f) outEnvL = 0f;
+                if (outEnvR < 1e-25f) outEnvR = 0f;
 
                 output[i] = new Sample(outL * INV_SCALE, outR * INV_SCALE);
             }
+
+            // Persist envelope state across buffers, publish to UI via volatile.
+            _outEnvL = outEnvL;
+            _outEnvR = outEnvR;
+            MeterOutLeftDb  = outEnvL > 1e-6f ? FastMath.LinToDb(outEnvL) : -120f;
+            MeterOutRightDb = outEnvR > 1e-6f ? FastMath.LinToDb(outEnvR) : -120f;
 
             return true;
         }

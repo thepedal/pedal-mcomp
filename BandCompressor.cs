@@ -31,6 +31,15 @@ namespace PedalMComp
         public volatile float MeterInDb = -120f;
         public volatile float MeterGrDb = 0f;
 
+        // ── Lookahead delay line (stereo) ───────────────────────────────
+        // Pre-allocated at construction at MAX_LOOKAHEAD_SAMPLES so no
+        // audio-thread allocations. Sized to cover the parameter's full
+        // 10 ms range up to 192 kHz (1920 samples) plus headroom.
+        private const int MAX_LOOKAHEAD_SAMPLES = 2048;
+        private readonly float[] _delayL = new float[MAX_LOOKAHEAD_SAMPLES];
+        private readonly float[] _delayR = new float[MAX_LOOKAHEAD_SAMPLES];
+        private int _delayWriteIdx = 0;
+
         // ── Coefficient cache ───────────────────────────────────────────
         private int   _cSr        = -1;
         private float _cAttackMs  = -1f;
@@ -102,12 +111,19 @@ namespace PedalMComp
         //   hot a band is before deciding to compress it).
         // - bypass=true skips ONLY the gain application; detection still
         //   updates _envDb and the volatile meter fields.
+        // - lookaheadSamples > 0 routes audio through a delay line so the
+        //   detector "sees" the future relative to the output (compression
+        //   kicks in *before* the transient at the output). Detector reads
+        //   live signal; gain applies to the delayed sample. The delay
+        //   runs regardless of bypass — all bands must share identical
+        //   delay so they stay aligned at the sum.
         public void Process(
             ref float L, ref float R,
             float threshDb, float ratio, float kneeDb,
-            float makeupLin, bool isRms, bool bypass)
+            float makeupLin, bool isRms, bool bypass,
+            int lookaheadSamples)
         {
-            // ── 1. Stereo-linked level detection (always) ───────────────
+            // ── 1. Stereo-linked level detection (always, on live signal) ──
             float detLin;
             if (isRms)
             {
@@ -129,25 +145,43 @@ namespace PedalMComp
             float detDb = FastMath.LinToDb(detLin);
 
             // ── 2. Attack/release smoothing in dB domain ────────────────
-            // Faster coef when input is rising (attack), slower on falling
-            // (release). Standard feed-forward compressor behaviour.
             float coef = detDb > _envDb ? _attackCoef : _releaseCoef;
             _envDb = coef * _envDb + (1f - coef) * detDb;
 
             // Publish input level for the meter regardless of bypass.
             MeterInDb = _envDb;
 
+            // ── 3. Lookahead delay line (if enabled) ────────────────────
+            // Always writes/reads when lookahead > 0, regardless of bypass:
+            // all 4 bands must share identical delay so the sum stays
+            // phase-coherent. The zero-lookahead fast path skips the
+            // delay machinery entirely.
+            if (lookaheadSamples > 0)
+            {
+                _delayL[_delayWriteIdx] = L;
+                _delayR[_delayWriteIdx] = R;
+                int readIdx = _delayWriteIdx - lookaheadSamples;
+                if (readIdx < 0) readIdx += MAX_LOOKAHEAD_SAMPLES;
+                L = _delayL[readIdx];
+                R = _delayR[readIdx];
+                _delayWriteIdx++;
+                if (_delayWriteIdx >= MAX_LOOKAHEAD_SAMPLES) _delayWriteIdx = 0;
+            }
+
+            // ── 4. Bypass: skip gain application but keep meters honest ──
             if (bypass)
             {
                 MeterGrDb = 0f;
                 return;
             }
 
-            // ── 3. Static curve → gain reduction in dB ──────────────────
+            // ── 5. Static curve → gain reduction in dB ──────────────────
             float grDb = SoftKneeGR(_envDb, threshDb, kneeDb, ratio);
             MeterGrDb = grDb;
 
-            // ── 4. Apply gain reduction + makeup in linear domain ───────
+            // ── 6. Apply gain reduction + makeup in linear domain ───────
+            // Applied to L/R which are now the DELAYED signal if lookahead > 0,
+            // or the live signal otherwise.
             float gainLin = FastMath.DbToLin(-grDb) * makeupLin;
             L *= gainLin;
             R *= gainLin;
@@ -160,6 +194,9 @@ namespace PedalMComp
             _rmsEnvSq = 0f;
             MeterInDb = -120f;
             MeterGrDb = 0f;
+            Array.Clear(_delayL, 0, MAX_LOOKAHEAD_SAMPLES);
+            Array.Clear(_delayR, 0, MAX_LOOKAHEAD_SAMPLES);
+            _delayWriteIdx = 0;
         }
     }
 }

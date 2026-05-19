@@ -1,4 +1,4 @@
-# Pedal MComp v1.1
+# Pedal MComp v1.3
 
 A 4-band stereo soft-knee compressor for ReBuzz, with Linkwitz-Riley 24 dB/oct
 crossovers in a balanced binary-tree topology. Each band has independent
@@ -9,7 +9,33 @@ ratio / %) rather than a raw integer.
 
 **New in v1.1**: custom GUI embedded in the parameter window — per-band input
 and gain-reduction meters, transfer-curve display with operating-point dot,
-threshold/ratio readout, bypass overlay. See "GUI" section below.
+threshold/ratio readout, bypass overlay.
+
+**New in v1.2**: per-sample denormal protection on all LR4 and detector state
+variables; CPU on sustained silence drops from ~50× nominal to typical-bypass
+levels (Core §30 pattern).
+
+**New in v1.3**:
+
+- **Lookahead** (0-10 ms log-mapped, off by default). When enabled, audio is
+  pre-delayed so the compressor reacts before transients reach the output.
+  Adds equivalent processing latency — the wet path and a delay-aligned dry
+  path stay phase-coherent so the Dry-Wet mix doesn't comb. Off = true
+  zero-latency bypass of the delay machinery.
+- **Phase Linear** crossover summation. Adds two all-pass biquads (one per
+  inner-split branch, tuned to the opposite branch's crossover frequency) so
+  all four band paths share the same phase response after summation. Trade-off
+  is a small fixed group delay (1-3 ms depending on crossovers). Off by
+  default; existing presets are bit-identical.
+- **Spectrum view** (toggle). When enabled, a real-time FFT-based spectrum
+  analyser appears below the OUT meter showing the post-effect output
+  signal, with crossover-frequency markers overlaid. Widget grows
+  vertically when on, returns to the v1.2 footprint when off. Visual
+  only — does not affect audio.
+- **OUT meter**: stereo post-everything output level at the bottom of the
+  widget. Three-zone green/amber/red bars matching the IN meters, with a
+  white peak-hold dot that decays slowly so brief peaks remain visible.
+  Turns red when peaks reach or exceed 0 dBFS.
 
 ## Signal flow
 
@@ -48,6 +74,9 @@ rather than "95".
 | 25-30 | H &lt;params&gt;  |    | same six                              |
 | 31 | Output Gain   | 0-48   | -24 to +24 dB; index 24 = unity       |
 | 32 | Dry-Wet       | 0-100  | %                                     |
+| 33 | Lookahead     | 0-127  | Off / 0.1 ms – 10 ms, log; default Off|
+| 34 | Phase Linear  | 0-1    | Off / On; default Off                 |
+| 35 | Spectrum View | 0-1    | Off / On; default Off (GUI only)      |
 
 ### Per-band parameters
 
@@ -127,19 +156,27 @@ thread and read from the UI thread — no locks, no allocations per frame
 
 ## Limitations / future work
 
-- **No lookahead** in v1. Useful for catching fast transients without
-  audible attack-time artefacts; adding it across four bands needs careful
-  group-delay matching, deferred to v1.x.
-- **Phase-flat summation requires an all-pass correction** on the inner
-  splits. v1 sums magnitude-flat (good enough for transparent operation)
-  but the phase response tilts at the crossover points. Inaudible on most
-  material; addable as v1.x without breaking presets.
+- **No latency reporting to the host.** ReBuzz has no plugin-delay-compensation
+  mechanism in v1.3, so when Lookahead is non-zero the machine's output is
+  delayed relative to non-delayed parallel channels in the rack. The internal
+  dry path is delay-aligned so the Dry-Wet mix stays coherent; cross-channel
+  alignment is the user's responsibility. Default-off avoids accidental
+  surprises.
+- **Phase Linear adds group delay, not zero phase.** The all-pass compensation
+  makes the four bands sum phase-coherently at crossovers, but the combined
+  filter chain has a frequency-dependent group delay — typical 1-3 ms total
+  across all all-passes for usual crossover settings. "Phase linear" means
+  *aligned across bands*, not *zero delay*.
 - **GUI is read-only.** Meters and curves display, but the curves aren't
   click-draggable for parameter editing (use the parameter sliders below
   the embedded GUI). Adding drag-edit on the curves is a v1.x candidate.
-- **No sidechain input.** v1 detects from the band's own signal only. A
+- **No sidechain input.** Detection is from the band's own signal only. A
   sidechain input that feeds the detector while the program signal is
-  compressed is a useful v2-class feature.
+  compressed is a v2-class feature.
+- **No M/S processing**, **no per-band saturation**, **no auto-makeup**,
+  **no A/B compare**, **no internal output limiter** — bigger v2-class items
+  that may end up as a separate Pedal MComp Pro machine rather than bolt-ons
+  to v1.x.
 
 ## Preset bank
 
@@ -185,13 +222,15 @@ dotnet build              # → deploys both files
 |---------------------------------|----------------------------------------------------|
 | `Pedal MComp.NET.csproj`        | Build config; net10.0-windows, Effects deploy     |
 | `PedalMComp.cs`                 | Main: parameter declarations + Work loop          |
-| `PedalMCompGui.cs`              | WPF GUI factory + UserControl (v1.1)              |
-| `BandCompressor.cs`             | Single-band DSP, port of Pedal Comp v1            |
+| `PedalMCompGui.cs`              | WPF GUI (bands, OUT meter, spectrum view)         |
+| `BandCompressor.cs`             | Single-band DSP (now with lookahead delay line)   |
 | `Crossover.cs`                  | LR4 LP/HP biquad pair, cached coefs               |
+| `AllPass.cs` *(new in v1.3)*    | 2nd-order all-pass biquad for Phase Linear        |
+| `SpectrumAnalyzer.cs` *(v1.3)*  | Ring buffer + windowed FFT for spectrum view      |
 | `FastMath.cs`                   | LinToDb/DbToLin from PedalComp §5                 |
 | `gen_param_labels.py`           | Generator for inlined ValueDescriptions arrays    |
 | `gen_presets.py`                | Generator for the preset bundle XML               |
-| `Pedal MComp_Presets.prs.xml`   | Generated preset bank (20 presets)                |
+| `Pedal MComp_Presets.prs.xml`   | Generated preset bank (20 presets, v1.0)          |
 | `README.md`                     | This file                                          |
 
 Both `gen_*.py` scripts live in source for reproducibility but are NOT

@@ -71,6 +71,25 @@ def fmt_ratio_idx(i):
     return f"{round(r)}:1"
 
 
+def fmt_lookahead_ms(ms):
+    # Visual resolution chosen so adjacent log-mapped values rarely collapse:
+    # range is 0.1..10 ms over 126 indices, so log step ~1.037× per index.
+    # At 0.1 ms neighbours differ by ~0.004 ms (2 decimals OK), at 10 ms
+    # by ~0.37 ms (1 decimal OK).
+    if ms < 1.0:  return f"{ms:.2f} ms"
+    if ms < 10.0: return f"{ms:.2f} ms"
+    return f"{ms:.1f} ms"
+
+def lookahead_array():
+    # Index 0 is the off sentinel — zero-latency fast path in audio code.
+    # Indices 1..127 log-map 0.1..10 ms (×100 range over 126 steps).
+    out = ["Off"]
+    for v in range(1, 128):
+        ms = 0.1 * (100.0 ** ((v - 1) / 126.0))
+        out.append(fmt_lookahead_ms(ms))
+    return out
+
+
 # ── Array generators ────────────────────────────────────────────────────
 
 def linear(n, fmt):
@@ -94,6 +113,8 @@ ARRAYS = {
     "XoverLLM":   log_range(128, 40,  600,   fmt_hz),
     "XoverLMHM":  log_range(128, 200, 3000,  fmt_hz),
     "XoverHMH":   log_range(128, 800, 12000, fmt_hz),
+    # v1.3 additions:
+    "Lookahead":  lookahead_array(),
 }
 
 
@@ -171,6 +192,22 @@ PARAMS.append(("OutputGain", "Output Gain",
 PARAMS.append(("DryWet", "Dry-Wet",
     "Mix between dry input (0) and compressed output (100)",
     0, 100, 100, "DryWet", None))
+
+# ── v1.3 additions ──────────────────────────────────────────────────────
+PARAMS.append(("Lookahead", "Lookahead",
+    "Pre-delays audio so the compressor reacts before transients reach the output. "
+    "Adds equivalent processing latency — comb-filtering occurs if a parallel dry "
+    "path is in use. Off = zero-latency.",
+    0, 127, 0, "Lookahead", None))
+PARAMS.append(("PhaseLinear", "Phase Linear",
+    "Adds all-pass compensation so the four bands sum phase-coherently at "
+    "crossovers. Adds a small fixed group delay (1-3 ms depending on crossover "
+    "frequencies).",
+    0, 1, 0, None, ["Off", "On"]))
+PARAMS.append(("SpectrumView", "Spectrum View",
+    "Show a real-time spectrum analyser below the OUT meter, showing the "
+    "post-effect output signal. Does not affect audio.",
+    0, 1, 0, None, ["Off", "On"]))
 
 
 def emit_param_decl(p):
